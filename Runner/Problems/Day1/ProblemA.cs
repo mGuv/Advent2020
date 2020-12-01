@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,25 +8,32 @@ using Runner.Console;
 namespace Runner.Problems.Day1
 {
     /// <summary>
-    /// Currently just an example problem that should be replaced once the problem has gone live
+    /// Solution to Day1 - Part A, utilising nested loops
     /// </summary>
     [Injectable]
-    public class ProblemA : InputProblem
+    public class ProblemA : FileProblem
     {
         /// <inheritdoc/>
         public override async IAsyncEnumerable<string> RunAsync(Arguments arguments)
         {
             string input = this.GetInput(arguments);
-            yield return "got input " + input;
-            await Task.Delay(5000);
-            yield return "1 of 10";
-            await Task.Delay(2000);
-            yield return "5 of 10";
-            Thread.Sleep(2000);
-            yield return "6 of 10";
-            await Task.Delay(2000);
-            yield return "9 or 10";
-            await Task.Delay(2000);
+
+            string[] parts = input.Split("\n");
+
+
+            for (int x = 0; x < parts.Length - 2; x++)
+            {
+                for (int y = x + 1; y < parts.Length - 1; y++)
+                {
+                    int a = int.Parse(parts[x].Trim());
+                    int b = int.Parse(parts[y].Trim());
+
+                    if (a + b == 2020)
+                    {
+                        yield return (a * b).ToString();
+                    }
+                }
+            }
         }
     }
 }
