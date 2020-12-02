@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Runner.Console;
 
 namespace Runner.Problems
@@ -18,7 +19,7 @@ namespace Runner.Problems
         /// <param name="arguments">The given Problem arguments</param>
         /// <returns>The entire files content as a string</returns>
         /// <exception cref="ArgumentException">Exception thrown when the input file was invalid</exception>
-        protected string GetInput(Arguments arguments)
+        protected string GetRawInput(Arguments arguments)
         {
             if (!arguments.HasArgument("f"))
             {
@@ -32,6 +33,20 @@ namespace Runner.Problems
             }
 
             return System.IO.File.ReadAllText(filePath);
+        }
+
+        protected string[] GetInput(Arguments arguments)
+        {
+            string[] rawInput = this.GetRawInput(arguments).Split("\n");
+
+            // Not taking any chances this year, ensure any new line related character is removed
+            for (int i = 0; i < rawInput.Length; i++)
+            {
+                rawInput[i] = rawInput[i].Replace("\r", "").Replace("\n", "");
+            }
+
+            // Rider is adding a blank line to the end so ensure only lines with content are allowed through
+            return rawInput.Where(s => s.Length > 0).ToArray();
         }
     }
 }

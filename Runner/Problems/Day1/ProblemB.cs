@@ -13,7 +13,7 @@ namespace Runner.Problems.Day1
         /// <inheritdoc/>
         public override async IAsyncEnumerable<string> RunAsync(Arguments arguments)
         {
-            string input = this.GetInput(arguments);
+            string input = this.GetRawInput(arguments);
 
             string[] parts = input.Split("\n");
 

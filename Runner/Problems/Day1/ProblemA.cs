@@ -16,21 +16,20 @@ namespace Runner.Problems.Day1
         /// <inheritdoc/>
         public override async IAsyncEnumerable<string> RunAsync(Arguments arguments)
         {
-            string input = this.GetInput(arguments);
+            string[] parts = this.GetInput(arguments);
+            int iterations = 0;
 
-            string[] parts = input.Split("\n");
-
-
-            for (int x = 0; x < parts.Length - 2; x++)
+            for (int x = 0; x < parts.Length - 1; x++)
             {
-                for (int y = x + 1; y < parts.Length - 1; y++)
+                for (int y = x + 1; y < parts.Length; y++)
                 {
+                    iterations++;
                     int a = int.Parse(parts[x].Trim());
                     int b = int.Parse(parts[y].Trim());
 
                     if (a + b == 2020)
                     {
-                        yield return (a * b).ToString();
+                        yield return $"Answer: {(a * b).ToString()} - iterations: {iterations}";
                     }
                 }
             }
