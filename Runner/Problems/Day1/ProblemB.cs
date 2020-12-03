@@ -11,7 +11,7 @@ namespace Runner.Problems.Day1
     public class ProblemB : FileProblem
     {
         /// <inheritdoc/>
-        public override async Task<string> RunAsync(Arguments arguments, Writer writer)
+        public override string Run(Arguments arguments, Writer writer)
         {
             string input = this.GetRawInput(arguments);
 
@@ -24,7 +24,7 @@ namespace Runner.Problems.Day1
                 {
                     for (int z = y + 1; z < parts.Length - 1; z++)
                     {
-                        await writer.SetBufferedLineAsync($"Checking line {x}, {y} and {z}");
+                        writer.WriteLine($"Checking line {x}, {y} and {z}");
 
                         int a = int.Parse(parts[x].Trim());
                         int b = int.Parse(parts[y].Trim());

@@ -13,7 +13,7 @@ namespace Runner.Problems
         /// </summary>
         /// <param name="arguments">The arguments to control the problem</param>
         /// <param name="writer">The writer to log debug messages to</param>
-        /// <returns>An awaitable task that upon completion contains the result</returns>
-        Task<string> RunAsync(Arguments arguments, Writer writer);
+        /// <returns>The final output of the problem</returns>
+        string Run(Arguments arguments, Writer writer);
     }
 }

@@ -11,7 +11,7 @@ namespace Runner.Problems
     public abstract class FileProblem : IProblem
     {
         /// <inheritdoc/>
-        public abstract Task<string> RunAsync(Arguments arguments, Writer writer);
+        public abstract string Run(Arguments arguments, Writer writer);
 
         /// <summary>
         /// Uses the arguments to find the input data

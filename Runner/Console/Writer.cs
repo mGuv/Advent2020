@@ -10,15 +10,6 @@ namespace Runner.Console
     [Injectable]
     public class Writer
     {
-        private SemaphoreSlim bufferSempahore;
-
-        private string currentBuffer = "";
-
-        public Writer()
-        {
-            this.bufferSempahore = new SemaphoreSlim(1, 1);
-        }
-
         /// <summary>
         /// Writes a line that ends with a line break, defaults to empty for forcing printing on a new line
         /// </summary>
@@ -38,20 +29,6 @@ namespace Runner.Console
             System.Console.Write(new string(' ', System.Console.BufferWidth));
             System.Console.SetCursorPosition(0, System.Console.CursorTop - 1);
             System.Console.Write(line);
-        }
-
-        public async Task SetBufferedLineAsync(string line)
-        {
-            await this.bufferSempahore.WaitAsync();
-            this.currentBuffer = line;
-            this.bufferSempahore.Release();
-        }
-
-        public async Task WriteBufferedLine()
-        {
-            await this.bufferSempahore.WaitAsync();
-            this.WriteLine(this.currentBuffer);
-            this.bufferSempahore.Release();
         }
     }
 }

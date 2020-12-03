@@ -11,14 +11,14 @@ namespace Runner.Problems.Day1
     public class ProblemA : FileProblem
     {
         /// <inheritdoc/>
-        public override async Task<string> RunAsync(Arguments arguments, Writer writer)
+        public override string Run(Arguments arguments, Writer writer)
         {
             string[] parts = this.GetInput(arguments);
             for (int x = 0; x < parts.Length - 1; x++)
             {
                 for (int y = x + 1; y < parts.Length; y++)
                 {
-                    await writer.SetBufferedLineAsync($"Checking line {x} and {y}");
+                    writer.WriteLine($"Checking line {x} and {y}");
 
                     int a = int.Parse(parts[x].Trim());
                     int b = int.Parse(parts[y].Trim());

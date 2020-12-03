@@ -12,7 +12,7 @@ namespace Runner.Problems.Day2
     public class ProblemA : FileProblem
     {
         /// <inheritdoc/>
-        public override async Task<string> RunAsync(Arguments arguments, Writer writer)
+        public override string Run(Arguments arguments, Writer writer)
         {
             string[] parts = this.GetInput(arguments);
 
@@ -20,7 +20,7 @@ namespace Runner.Problems.Day2
 
             foreach (string part in parts)
             {
-                await writer.SetBufferedLineAsync($"Checking password: {part}");
+                writer.WriteLine($"Checking password: {part}");
                 string[] bits = part.Split(' ');
                 string[] bounds = bits[0].Split('-');
                 char character = bits[1].Substring(0, 1).ToCharArray()[0];

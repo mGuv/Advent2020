@@ -13,7 +13,7 @@ namespace Runner.Problems.Day3
     public class ProblemA : FileProblem
     {
         /// <inheritdoc/>
-        public override async Task<string> RunAsync(Arguments arguments, Writer writer)
+        public override string Run(Arguments arguments, Writer writer)
         {
             string[] parts = this.GetInput(arguments);
             HashSet<(int, int)> trees = new HashSet<(int, int)>();
@@ -33,7 +33,7 @@ namespace Runner.Problems.Day3
 
             for (int y = 1; y < parts.Length; y++)
             {
-                await writer.SetBufferedLineAsync($"Checking line {y - 1}");
+                writer.WriteLine($"Checking line {y - 1}");
                 if (trees.Contains(((y *3) % parts[y].Length, y)))
                 {
                     treesHit++;

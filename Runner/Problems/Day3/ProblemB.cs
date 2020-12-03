@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using Advent2020.DI;
 using Runner.Console;
 
@@ -13,7 +13,7 @@ namespace Runner.Problems.Day3
     public class ProblemB : FileProblem
     {
         /// <inheritdoc/>
-        public override async Task<string> RunAsync(Arguments arguments, Writer writer)
+        public override string Run(Arguments arguments, Writer writer)
         {
             string[] parts = this.GetInput(arguments);
             HashSet<(int, int)> trees = new HashSet<(int, int)>();
@@ -39,10 +39,9 @@ namespace Runner.Problems.Day3
             };
 
 
-            ulong totalHit = (await Task.WhenAll(slopes.Select(async s =>
+            ulong totalHit = slopes.Select(s =>
             {
-                await writer.SetBufferedLineAsync($"Checking slope ({s.Item1}, {s.Item2})");
-                await Task.Delay(1000);
+                writer.WriteLine($"Checking slope ({s.Item1}, {s.Item2})");
                 ulong treesHit = 0;
                 for (int y = 1; y < parts.Length; y++)
                 {
@@ -53,7 +52,7 @@ namespace Runner.Problems.Day3
                 }
 
                 return treesHit;
-            }))).Aggregate((a, b) => a* b);
+            }).Aggregate((a, b) => a * b);
 
 
             return $"Hit {totalHit} on the way";

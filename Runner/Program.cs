@@ -16,7 +16,7 @@ namespace Runner
         /// <param name="args">Command line arguments passed in</param>
         /// <returns>Empty Task that completes when the application has finished</returns>
         /// <exception cref="ArgumentException">Exception thrown when the program was called with invalid argumente</exception>
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             ProviderBuilder builder = new ProviderBuilder();
             IServiceProvider container = builder.AutowireAssembly(Assembly.GetExecutingAssembly()).Build();
@@ -27,7 +27,7 @@ namespace Runner
                 throw new ArgumentException("No problem specified with argument p");
             }
 
-            await Program.Autorun(container, arguments);
+            Program.Autorun(container, arguments);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Runner
         /// <param name="problem">The problem itself to run</param>
         /// <returns>Awaitable Task that ends when Problem is finished</returns>
         /// <exception cref="Exception">Thrown if there is something wrong with the Container</exception>
-        static async Task RunProblem(IServiceProvider container, Arguments arguments, IProblem problem)
+        static void RunProblem(IServiceProvider container, Arguments arguments, IProblem problem)
         {
             Writer? writer = container.GetService<Writer>();
 
@@ -48,18 +48,13 @@ namespace Runner
             }
 
             // Run Problem on background task
-            Task<string> problemTask = Task.Run( () =>  problem.RunAsync(arguments, writer));
-            while (!problemTask.IsCompleted)
-            {
-                await Task.WhenAny(problemTask, Task.Delay(5));
-                await writer.WriteBufferedLine();
-            }
+            string answer = problem.Run(arguments, writer);
 
             // Problem has finished, write out a sanity message to ensure it completed
             writer.WriteNewLine();
             writer.WriteNewLine("----");
             writer.WriteNewLine("Problem Finished!");
-            writer.WriteNewLine(await problemTask);
+            writer.WriteNewLine(answer);
         }
 
 
@@ -70,7 +65,7 @@ namespace Runner
         /// <param name="arguments">The incoming Program arguments</param>
         /// <returns>Awaitable Task that ends on Problem execution</returns>
         /// <exception cref="ArgumentException">Thrown when an invalid Problem is specified</exception>
-        static async Task Autorun(IServiceProvider container, Arguments arguments)
+        static void Autorun(IServiceProvider container, Arguments arguments)
         {
             // Check Type exists
             Type? type = Type.GetType($"Runner.Problems.{arguments.GetArgument("p")}");
@@ -89,7 +84,7 @@ namespace Runner
             }
 
             // Run
-            await Program.RunProblem(container, arguments, problem);
+            Program.RunProblem(container, arguments, problem);
         }
     }
 }
