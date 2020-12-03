@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using Runner.Console;
 
 namespace Runner.Problems
@@ -12,7 +12,8 @@ namespace Runner.Problems
         /// Runs the Problem with the given arguments
         /// </summary>
         /// <param name="arguments">The arguments to control the problem</param>
-        /// <returns>An awaitable, iterable stream of messages about the current problem's state</returns>
-        IAsyncEnumerable<string> RunAsync(Arguments arguments);
+        /// <param name="writer">The writer to log debug messages to</param>
+        /// <returns>An awaitable task that upon completion contains the result</returns>
+        Task<string> RunAsync(Arguments arguments, Writer writer);
     }
 }

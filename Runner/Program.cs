@@ -5,7 +5,6 @@ using Advent2020.DI;
 using Microsoft.Extensions.DependencyInjection;
 using Runner.Console;
 using Runner.Problems;
-using Runner.Problems.Day1;
 
 namespace Runner
 {
@@ -48,16 +47,19 @@ namespace Runner
                 throw new Exception("Container has failed as it couldn't load the basic Writer class");
             }
 
-            // Run Problem and write out status message
-            await foreach (string message in problem.RunAsync(arguments))
+            // Run Problem on background task
+            Task<string> problemTask = Task.Run( () =>  problem.RunAsync(arguments, writer));
+            while (!problemTask.IsCompleted)
             {
-                writer.WriteLine(message);
+                await Task.WhenAny(problemTask, Task.Delay(5));
+                await writer.WriteBufferedLine();
             }
 
             // Problem has finished, write out a sanity message to ensure it completed
             writer.WriteNewLine();
             writer.WriteNewLine("----");
             writer.WriteNewLine("Problem Finished!");
+            writer.WriteNewLine(await problemTask);
         }
 
 

@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Runner.Console;
 
 namespace Runner.Problems
@@ -11,7 +11,7 @@ namespace Runner.Problems
     public abstract class FileProblem : IProblem
     {
         /// <inheritdoc/>
-        public abstract IAsyncEnumerable<string> RunAsync(Arguments arguments);
+        public abstract Task<string> RunAsync(Arguments arguments, Writer writer);
 
         /// <summary>
         /// Uses the arguments to find the input data
