@@ -2,9 +2,14 @@
 
 This is my attempt at solving all the problems presented by Advent of Code 2020.
 
+## Installation
+
+- Install .NET 5 SDK, as I haven't wrapped this in a docker container yet
+- Checkout this repository
+
 ## Usage
 
-This year, the application needs to run entirely with command arguments.
+This year, the application needs to run entirely with command arguments. So navigate to the `./Runner/` folder and use `dotnet run`.
 
 ### p
 
