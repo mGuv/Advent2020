@@ -6,7 +6,7 @@ using Runner.Console;
 namespace Runner.Problems.Day4
 {
     /// <summary>
-    /// Solution to Day3 - Part A, Nested loops but now with modulo
+    /// Solution to Day4 - Part A, more difficult input parsing and dictionaries
     /// </summary>
     [Injectable]
     public class ProblemA : FileProblem
