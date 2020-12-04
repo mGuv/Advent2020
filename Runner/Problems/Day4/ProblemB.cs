@@ -82,6 +82,11 @@ namespace Runner.Problems.Day4
 
         private bool ValidatePid(string pid)
         {
+            if (pid.Length != 9)
+            {
+                return false;
+            }
+
             string without0 = pid.TrimStart('0');
             return int.TryParse(without0, out _);
         }
