@@ -9,7 +9,7 @@ using Runner.Console;
 namespace Runner.Problems.Day16
 {
     /// <summary>
-    /// Solution to Day 11 - Part A - Conway's game of life (kind of)
+    /// Solution to Day 16 - Part B - Greedy stack based searching
     /// </summary>
     [Injectable]
     public class ProblemB : FileProblem

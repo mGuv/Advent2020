@@ -8,7 +8,7 @@ using Runner.Console;
 namespace Runner.Problems.Day16
 {
     /// <summary>
-    /// Solution to Day 11 - Part A - Conway's game of life (kind of)
+    /// Solution to Day 16 - Part A - Predicate factories and string parsing
     /// </summary>
     [Injectable]
     public class ProblemA : FileProblem
